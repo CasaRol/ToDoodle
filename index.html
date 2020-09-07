@@ -11,7 +11,7 @@
 
     <div style="align-items: center">
         <input type="text" id="todo" placeholder="Enter ToDo Here">
-        <input type="submit" value="Add to ToDo">
+        <input onclick="addToDo()" type="submit" value="Add to ToDo" id="textArea">
     </div>
     
     <div id="list"></div>
@@ -39,8 +39,19 @@
         }
     
     return list;
-    }    
-    
+    } 
 </script>
+<script>
+    function() {
+        //Add entry in database for textArea content
+    'use strict'
+    
+    let data = JSON.stringify(task);
+    
+    fs.writeFileSync('file.json', data, finished);
+    
+        
+    }
+    </script>
     
 </html>
