@@ -50,13 +50,13 @@
         }
 
         function saveData() {
-            fetch("http://localhost:8080/savedata"), {
+            fetch("http://localhost:8080/savedata", {
                 method: 'post',
-                body: JSON.stringify(array),
+                body: {"array": JSON.stringify(array)},
                 headers: {
                     "content-type": "application/json; charset=UTF-8"
                 }
-            }
+            })
         }
 
     </script>
