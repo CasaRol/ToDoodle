@@ -3,8 +3,67 @@
 
 <head>
     <link rel="stylesheet" href="styles.css">
+    <script>
+        var array = [1, 2, 3, 'Dillertjavs!!!!'];
+
+        window.onload = () => {
+            document.getElementById('list').appendChild(createList(array));
+
+            createList(array);
+            
+        } 
+
+        function createList(array) {
+                
+                var list = document.createElement('ul');
+        
+                for(var i = 0; i < array.length; i++) {
+                    //Create list element
+                    var item = document.createElement('li');
+            
+                    //set element content
+                    item.appendChild(document.createTextNode(array[i]));
+            
+                    //add item to list
+                    list.appendChild(item);
+                }
+        
+            return list;
+            } 
+
+        function addToDo() {
+            if(document.getElementById("todo").value !== "") {
+                let entry = document.getElementById("todo").value;
+
+                console.log("before = " + array);
+
+                array.push(entry);
+                createList(array);
+
+                console.log("after = " + array);
+
+                document.getElementById("todo").value = "";
+
+                saveData();
+
+            }
+        }
+
+        function saveData() {
+            fetch("http://localhost:8080/savedata"), {
+                method: 'POST',
+                body: JSON.stringify(array),
+                headers: {
+                    "content-type": "application/json; charset=UTF-8"
+                }
+            }
+        }
+
+    </script>
+
     <h1>ToDoodle</h1>
     <p class="centering">Online ToDo-lists for your pesonal use</p>
+
 </head>
 
 <body>
@@ -17,41 +76,5 @@
     <div id="list"></div>
         
 </body>
-    
-<script>
- 
-    var array = [1, 2, 3, 'Dillertjavs!!!!'];
-    
-    document.getElementById('list').appendChild(createList(array));
-
-    function createList(array) {
-        var list = document.createElement('ul');
-    
-        for(var i = 0; i < array.length; i++) {
-            //Create list element
-            var item = document.createElement('li');
-        
-            //set element content
-            item.appendChild(document.createTextNode(array[i]));
-        
-            //add item to list
-            list.appendChild(item);
-        }
-    
-    return list;
-    } 
-</script>
-<script>
-    function() {
-        //Add entry in database for textArea content
-    'use strict'
-    
-    let data = JSON.stringify(task);
-    
-    fs.writeFileSync('file.json', data, finished);
-    
-        
-    }
-    </script>
     
 </html>
