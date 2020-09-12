@@ -51,7 +51,7 @@
 
         function saveData() {
             fetch("http://localhost:8080/savedata"), {
-                method: 'POST',
+                method: 'post',
                 body: JSON.stringify(array),
                 headers: {
                     "content-type": "application/json; charset=UTF-8"

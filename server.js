@@ -1,13 +1,22 @@
 const express = require('express');
 const fs = require('fs');
-var http = require('http');
-var server = http.createServer();
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const server = express();
 
-server.POST('/savedata', (req, res) => {
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+server.use(cors());
+server.options('*', cors());
+
+server.post('/savedata', (req, res) => {
+    console.log(req.body.array);
     let array = req.body.array;
 
     fs.writeFileSync("todo.json", array);
 
+    res.write(200, "OK");
+    res.send();
     res.end();
 });
 
