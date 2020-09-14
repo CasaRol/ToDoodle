@@ -11,15 +11,19 @@ server.use(cors());
 server.options('*', cors());
 
 server.post('/savedata', (req, res) => {
-    console.log(req.body.array);
-    let array = req.body.array;
 
-    fs.writeFileSync("todo.json", JSON.stringify(array));
+    fs.writeFileSync("todo.json", req.body.tmpArray);
 
-    res.write(200, "OK");
+    res.write("OK", 200);
     res.send();
     res.end();
 });
+
+server.get('/ping', (req, res) => {
+    res.write('OK', 200);
+    res.send();
+    res.end();
+})
 
 let port = 8080
 server.listen(port);

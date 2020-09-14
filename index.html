@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <script>
-        var array = [1, 2, 3, 'Dillertjavs!!!!'];
+        var array = ['1', '2', '3', 'Dillertjavs!!!!'];
 
         window.onload = () => {
             document.getElementById('list').appendChild(createList(array));
@@ -45,6 +45,7 @@
                 document.getElementById("todo").value = "";
 
                 saveData();
+                //pingServer();
 
             }
         }
@@ -52,11 +53,16 @@
         function saveData() {
             fetch("http://localhost:8080/savedata", {
                 method: 'post',
-                body: {"array": JSON.stringify(array)},
+                body: JSON.stringify({tmpArray: array}),
                 headers: {
                     "content-type": "application/json; charset=UTF-8"
                 }
             })
+        }
+
+        function pingServer() {
+            console.log('server attempted pinged');
+            fetch("http://localhost:8080/ping");
         }
 
     </script>
