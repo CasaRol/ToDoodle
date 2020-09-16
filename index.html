@@ -5,65 +5,74 @@
     <link rel="stylesheet" href="styles.css">
     <script>
         var completeList = {
-            myList: ['SomeText', 'moreText', 'Avoid Numbers', 'more Testing']
+            myList: ['SomeText', 'moreText', 'Avoid Numbers', 'more Testing'],
+            latestEntry: "Default value"
         };
 
-        console.log(completeList);
-        //var array = ['SomeText', 'moreText', 'Avoid Numbers'];
-
         window.onload = () => {
-            document.getElementById('list').appendChild(createList(completeList.myList));
+            document.getElementById('list').appendChild(createList());
 
-            createList(completeList.myList);
+            //pingServer();
             
         } 
 
-        function createList(array) {
+        function createList() {
+
+            this.completeLidt = retrieveData();
+
+            console.log(this.completeList);
+
+            //console.log("completeList = " + JSON.stringify(completeList));
                 
-                var list = document.createElement('ul');
+            var list = document.createElement('ul');
         
-                for(var i = 0; i < array.length; i++) {
-                    //Create list element
-                    var item = document.createElement('li');
+            this.completeList.myList.forEach(element => {
+                //Create list element
+                var item = document.createElement('li');
             
-                    //set element content
-                    item.appendChild(document.createTextNode(array[i]));
+                //set element content
+                item.appendChild(document.createTextNode(element));
             
-                    //add item to list
-                    list.appendChild(item);
-                }
+                //add item to list
+                list.appendChild(item);
+            });
         
             return list;
             } 
 
         function addToDo() {
             if(document.getElementById("todo").value !== "") {
-                let entry = document.getElementById("todo").value;
+                console.log("SaveData completelist before changes = " + JSON.stringify(completeList));
 
-                console.log("before = " + completeList.myList);
+                let newEntry = document.getElementById("todo").value;
 
-                completeList.myList.push(entry);
-                createList(completeList.myList);
+                this.completeList.latestEntry = newEntry;
+                this.completeList.myList.push(newEntry);
 
-                console.log("after = " + completeList.myList);
+                console.log("changed = " + this.completeList.latestEntry);
 
                 document.getElementById("todo").value = "";
 
                 saveData();
-                //pingServer();
 
             }
         }
 
         function saveData() {
-            console.log("The complete list list lookes like this: " + JSON.stringify(completeList));
+            //console.log("The complete list list lookes like this: " + JSON.stringify(completeList));
             fetch("http://localhost:8080/savedata", {
                 method: 'post',
                 body: JSON.stringify(this.completeList),
                 headers: {
                     "content-type": "application/json; charset=UTF-8"
                 }
-            })
+            });
+        }
+
+        function retrieveData() {
+            fetch('http://localhost:8080/retrievedata')
+                .then(response => response.json())
+                .then(json => this.completeList = JSON.parse(json));
         }
 
         function pingServer() {
