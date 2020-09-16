@@ -4,12 +4,6 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <script>
-        /*
-        var completeList = {
-            myList: ['SomeText', 'moreText', 'Avoid Numbers', 'more Testing'],
-            latestEntry: "Default value"
-        };
-        */
 
         window.onload = () => {
             document.getElementById('list').appendChild(createList());
@@ -45,7 +39,7 @@
 
                 let completeList = JSON.parse(window.localStorage.getItem('myToDo'));
 
-                console.log("completeList in addToDo = " + JSON.stringify(completeList));
+                //console.log("completeList in addToDo = " + JSON.stringify(completeList));
 
                 let newEntry = document.getElementById("todo").value;
 
@@ -54,7 +48,7 @@
 
                 window.localStorage.setItem('myToDo', JSON.stringify(completeList));
 
-                console.log(window.localStorage.getItem('myToDo'));
+                //console.log(window.localStorage.getItem('myToDo'));
 
                 saveData();
 

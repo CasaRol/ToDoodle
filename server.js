@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const http = require('http');
+//const http = require('http');
 const server = express();
 
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -13,7 +13,7 @@ server.options('*', cors());
 server.post('/savedata', (req, res) => {
 
     let toDoList = req.body;
-    console.log(toDoList);
+    //console.log(toDoList);
 
     //console.log("server received: " + JSON.stringify(toDoList)) //This becomes "[object Object]"
     fs.writeFileSync("todo.json", JSON.stringify(toDoList));
@@ -24,11 +24,11 @@ server.post('/savedata', (req, res) => {
 });
 
 server.get('/retrievedata', (req, res) => {
-    console.log("server requested for json");
+    //console.log("server requested for json");
     
     let file = JSON.parse(fs.readFileSync('todo.json'));
 
-    console.log(JSON.stringify(file));
+    //console.log(JSON.stringify(file));
 
     res.json(JSON.stringify(file));
     res.end();
