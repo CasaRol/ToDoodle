@@ -4,12 +4,17 @@
 <head>
     <link rel="stylesheet" href="styles.css">
     <script>
-        var array = ['1', '2', '3', 'Dillertjavs!!!!'];
+        var completeList = {
+            myList: ['SomeText', 'moreText', 'Avoid Numbers', 'more Testing']
+        };
+
+        console.log(completeList);
+        //var array = ['SomeText', 'moreText', 'Avoid Numbers'];
 
         window.onload = () => {
-            document.getElementById('list').appendChild(createList(array));
+            document.getElementById('list').appendChild(createList(completeList.myList));
 
-            createList(array);
+            createList(completeList.myList);
             
         } 
 
@@ -35,12 +40,12 @@
             if(document.getElementById("todo").value !== "") {
                 let entry = document.getElementById("todo").value;
 
-                console.log("before = " + array);
+                console.log("before = " + completeList.myList);
 
-                array.push(entry);
-                createList(array);
+                completeList.myList.push(entry);
+                createList(completeList.myList);
 
-                console.log("after = " + array);
+                console.log("after = " + completeList.myList);
 
                 document.getElementById("todo").value = "";
 
@@ -51,9 +56,10 @@
         }
 
         function saveData() {
+            console.log("The complete list list lookes like this: " + JSON.stringify(completeList));
             fetch("http://localhost:8080/savedata", {
                 method: 'post',
-                body: JSON.stringify({tmpArray: array}),
+                body: JSON.stringify(this.completeList),
                 headers: {
                     "content-type": "application/json; charset=UTF-8"
                 }

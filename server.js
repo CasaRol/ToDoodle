@@ -12,7 +12,10 @@ server.options('*', cors());
 
 server.post('/savedata', (req, res) => {
 
-    fs.writeFileSync("todo.json", req.body.tmpArray);
+    let myToDo = req.body;
+
+    console.log("server received: " + JSON.stringify(myToDo)) //This becomes "[object Object]"
+    fs.writeFileSync("todo.json", JSON.stringify(req.body));
 
     res.write("OK", 200);
     res.send();
