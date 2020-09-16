@@ -13,6 +13,7 @@ server.options('*', cors());
 server.post('/savedata', (req, res) => {
 
     let toDoList = req.body;
+    console.log(toDoList);
 
     //console.log("server received: " + JSON.stringify(toDoList)) //This becomes "[object Object]"
     fs.writeFileSync("todo.json", JSON.stringify(toDoList));
@@ -27,7 +28,7 @@ server.get('/retrievedata', (req, res) => {
     
     let file = JSON.parse(fs.readFileSync('todo.json'));
 
-    //console.log(JSON.stringify(file));
+    console.log(JSON.stringify(file));
 
     res.json(JSON.stringify(file));
     res.end();
