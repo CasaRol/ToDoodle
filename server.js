@@ -10,6 +10,16 @@ server.use(bodyParser.json());
 server.use(cors());
 server.options('*', cors());
 
+server.use(express.static(__dirname));
+
+//Return index file (HTML)
+server.get('/', (req, res) => {
+
+    res.sendFile(__dirname + './index.html')
+
+});
+
+
 server.post('/savedata', (req, res) => {
 
     let toDoList = req.body;
